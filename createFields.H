@@ -126,8 +126,6 @@ mesh.setFluxRequired(p_rgh.name());
         fluid.phase2().thermo().rho()*fluid.phase2().nu()
     );
 
-/*
-Note: 190526-Revised to this part
 
     // Calculate alpha for fluid phase
     // alphac must be constructed before the cloud
@@ -189,7 +187,7 @@ Note: 190526-Revised to this part
         alphacf*phic
     );
 
-*/
+
 /*-------------------END ADDING CODE-------------------*/
 
 
