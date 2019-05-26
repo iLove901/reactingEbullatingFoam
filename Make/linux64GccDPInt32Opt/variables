@@ -1,1 +1,1 @@
-EXE = $(FOAM_APPBIN)/reactingEbullatingFoam
+EXE = $(FOAM_APPBIN)/axiReactingEbullatingFoam

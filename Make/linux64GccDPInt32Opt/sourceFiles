@@ -1,2 +1,2 @@
 SOURCE = \
-reactingEbullatingFoam.C 
+axiReactingEbullatingFoam.C 

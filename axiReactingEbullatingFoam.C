@@ -1,35 +1,19 @@
 /*---------------------------------------------------------------------------*\
   =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     | Website:  https://openfoam.org
-    \\  /    A nd           | Copyright (C) 2011-2018 OpenFOAM Foundation
+  \\      /  F ield         | 
+   \\    /   O peration     | 	OpenFOAM: The Open Source CFD Toolbox
+    \\  /    A nd           | 
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
-
-    OpenFOAM is free software: you can redistribute it and/or modify it
-    under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
-    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-    for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
-
 Application
-    reactingTwoPhaseEulerFoam
+    reactingEbullatingFoam
 
 Description
-    Solver for a system of 2 compressible fluid phases with a common pressure,
-    but otherwise separate properties. The type of phase model is run time
-    selectable and can optionally represent multiple species and in-phase
-    reactions. The phase system is also run time selectable and can optionally
-    represent different types of momentun, heat and mass transfer.
+	Solver for a system of 2 compressible fluid phases and 1 solid particle phase. 
+	Continuous phase is liquid, dispersed phase is gas, and granular phase is solid.
+
+Note:
+	190526 -- Move all the phase models to "./multiphaseModels/" (Edited by CHEN Bo)
 
 \*---------------------------------------------------------------------------*/
 
@@ -40,10 +24,27 @@ Description
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
 
+/*-------------------ADDING CODE------------test-----------*/
+    // Include basic kinematic libaray
+    #include "basicKinematicCollidingCloud.H"
+    #define basicKinematicTypeCloud basicKinematicCollidingCloud
+/*-------------------END ADDING CODE-------------------*/
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
 {
+    /*-------------------ADDING CODE-----------------------*/   
+        // Specify the cloud name
+        // E.g.: myTwoPhaseTestFoam -cloudName <NAME> -help
+        argList::addOption
+        (
+            "cloudName",
+            "name",
+            "specify alternative cloud name. default is 'kinematicCloud'"
+        );
+    /*-------------------END ADDING CODE-------------------*/
+
     #include "postProcess.H"
 
     #include "setRootCaseLists.H"

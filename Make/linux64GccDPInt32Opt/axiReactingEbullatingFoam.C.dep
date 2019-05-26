@@ -1,5 +1,5 @@
-$(OBJECTS_DIR)/reactingEbullatingFoam.C.dep: \
-reactingEbullatingFoam.C \
+$(OBJECTS_DIR)/axiReactingEbullatingFoam.C.dep: \
+axiReactingEbullatingFoam.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvCFD.H \
 twoPhaseSystem/lnInclude/twoPhaseSystem.H \
 multiphaseModels/phaseSystems/lnInclude/phaseCompressibleTurbulenceModel.H \
