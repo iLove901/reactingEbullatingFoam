@@ -98,6 +98,12 @@ int main(int argc, char *argv[])
         runTime++;
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
+        /*-------------------ADDING CODE-----------------------*/
+		// All the particle interactions are caculated in this header file
+		// Returns "cloudSU" term
+		#include "cloudInteraction.H"
+        /*-------------------END ADDING CODE-------------------*/
+
         // --- Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {

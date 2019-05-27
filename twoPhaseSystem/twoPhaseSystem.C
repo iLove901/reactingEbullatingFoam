@@ -340,7 +340,8 @@ void Foam::twoPhaseSystem::solve()
         alpha1.maxMin(0, 1);
 
         // Update the phase-fraction of the other phase
-        alpha2 = scalar(1) - alpha1;
+	// alpha2 = scalar(1) - alpha1;
+	alpha2 = alphac - alpha1;
     }
 }
 
