@@ -61,7 +61,9 @@ Foam::twoPhaseSystem::twoPhaseSystem
     phase1_(phaseModels_[0]),
     phase2_(phaseModels_[1])
 {
-    phase2_.volScalarField::operator=(scalar(1) - phase1_);
+    // Revised for alphac
+    // phase2_.volScalarField::operator=(scalar(1) - phase1_);
+    phase2_.volScalarField::operator=(alphac - phase1_);
 
     volScalarField& alpha1 = phase1_;
     mesh.setFluxRequired(alpha1.name());
@@ -241,7 +243,9 @@ void Foam::twoPhaseSystem::solve()
             )
           + fvc::flux
             (
-               -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
+		// Revised for alphac
+                // -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
+		-fvc::flux(-phir, alphac - alpha1, alpharScheme),
                 alpha1,
                 alpharScheme
             )
@@ -339,9 +343,11 @@ void Foam::twoPhaseSystem::solve()
         // Ensure the phase-fractions are bounded
         alpha1.maxMin(0, 1);
 
-        // Update the phase-fraction of the other phase
-	// alpha2 = scalar(1) - alpha1;
-	alpha2 = alphac - alpha1;
+	/*------------------------ADDING CODE------------------------------------*/
+        	// Update the phase-fraction of the other phase
+		// alpha2 = scalar(1) - alpha1;
+		alpha2 = alphac - alpha1;
+	/*------------------------END ADDING CODE--------------------------------*/
     }
 }
 
