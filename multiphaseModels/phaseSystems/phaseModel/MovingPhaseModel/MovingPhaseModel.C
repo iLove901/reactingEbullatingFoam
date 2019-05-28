@@ -294,7 +294,7 @@ bool Foam::MovingPhaseModel<BasePhaseModel>::stationary() const
     return false;
 }
 
-
+/*----------------------ADDING CODE----------------------*/
 template<class BasePhaseModel>
 Foam::tmp<Foam::fvVectorMatrix>
 Foam::MovingPhaseModel<BasePhaseModel>::UEqn()
@@ -309,6 +309,7 @@ Foam::MovingPhaseModel<BasePhaseModel>::UEqn()
       + fvm::SuSp(- this->continuityError(), U_)
       + this->fluid().MRF().DDt(alpha*rho, U_)
       + turbulence_->divDevRhoReff(U_)
+      + fvm::SuSp(- kinematicCloud.SU(), Uc)    // Adding cloud interaction
     );
 }
 
@@ -329,9 +330,10 @@ Foam::MovingPhaseModel<BasePhaseModel>::UfEqn()
       + fvm::SuSp(- this->continuityErrorSources(), U_)
       + this->fluid().MRF().DDt(alpha*rho, U_)
       + turbulence_->divDevRhoReff(U_)
+      + fvm::SuSp(- kinematicCloud.SU(), Uc)    // Adding cloud interaction
     );
 }
-
+/*-------------------END ADDING CODE----------------------*/
 
 template<class BasePhaseModel>
 Foam::tmp<Foam::volVectorField>
