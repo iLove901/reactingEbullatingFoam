@@ -1,9 +1,9 @@
 EXE_INC = \
-    -I../../interfacialModels/lnInclude \
-    -I../../interfacialCompositionModels/lnInclude \
-    -I../../phaseSystems/lnInclude \
+    -I../multiphaseModels/interfacialModels/lnInclude \
+    -I../multiphaseModels/interfacialCompositionModels/lnInclude \
+    -I../multiphaseModels/phaseSystems/lnInclude \
     -I../twoPhaseCompressibleTurbulenceModels/lnInclude \
-    -I../../derivedFvPatchFields/lnInclude \
+    -I../multiphaseModels/derivedFvPatchFields/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude \

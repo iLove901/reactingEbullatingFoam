@@ -1,0 +1,10 @@
+$(OBJECTS_DIR)/twoPhaseSystems.C.dep: \
+twoPhaseSystems.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addToRunTimeSelectionTable.H \
+twoPhaseSystem.H \
+twoPhaseSystemI.H \
+
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addToRunTimeSelectionTable.H :
+twoPhaseSystem.H :
+twoPhaseSystemI.H :
+

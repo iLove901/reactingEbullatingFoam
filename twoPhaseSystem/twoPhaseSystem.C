@@ -347,6 +347,7 @@ void Foam::twoPhaseSystem::solve()
         	// Update the phase-fraction of the other phase
 		// alpha2 = scalar(1) - alpha1;
 		alpha2 = alphac - alpha1;
+		Info << ">>> AxiMeta: Revising alpha for water" << endl;
 	/*------------------------END ADDING CODE--------------------------------*/
     }
 }

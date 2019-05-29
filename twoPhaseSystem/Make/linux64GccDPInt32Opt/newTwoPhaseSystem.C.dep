@@ -1,0 +1,8 @@
+$(OBJECTS_DIR)/newTwoPhaseSystem.C.dep: \
+newTwoPhaseSystem.C \
+twoPhaseSystem.H \
+twoPhaseSystemI.H \
+
+twoPhaseSystem.H :
+twoPhaseSystemI.H :
+
