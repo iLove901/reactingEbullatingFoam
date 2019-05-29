@@ -34,6 +34,7 @@ fvVectorMatrix U2Eqn(U2, rho2.dimensions()*U2.dimensions()*dimVol/dimTime);
          ==
            *momentumTransfer[phase2.name()]
           + fvOptions(alpha2, rho2, U2)
+          - kinematicCloud.SU(U2)    // Adding cloud interaction
         );
         U2Eqn.relax();
         fvOptions.constrain(U2Eqn);
