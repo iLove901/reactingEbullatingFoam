@@ -1,0 +1,35 @@
+#!/bin/bash
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Enable bash script
+shopt -s extglob
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Create mesh
+blockMesh
+
+# Decompose 8 domain
+decomposePar
+
+# Run single core
+# runApplication $(getApplication)
+
+# Mpi run
+mpirun -np $(getNumberOfProcessors) $(getApplication) -parallel
+
+# Read shell
+# Enter y to reconstruct; otherwise exit
+echo
+echo
+
+let ReConstructOrNot="y"
+echo ">>> Reconstruct partitions or not? y -> YES    n -> NO"
+read -t 60 ReConstructOrNot
+
+if [ [$ReConstructOrNot == "y"] ]; then 
+	reconstructPar
+fi
+
+#------------------------------------------------------------------------------
