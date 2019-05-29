@@ -24,11 +24,11 @@ mpirun -np $(getNumberOfProcessors) $(getApplication) -parallel
 echo
 echo
 
-let ReConstructOrNot="y"
+ReConstructOrNot="y"
 echo ">>> Reconstruct partitions or not? y -> YES    n -> NO"
-read -t 60 ReConstructOrNot
+read -t 1 ReConstructOrNot
 
-if [ [$ReConstructOrNot == "y"] ]; then 
+if [ [$ReConstructOrNot="y"] ]; then 
 	reconstructPar
 fi
 
