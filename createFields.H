@@ -136,7 +136,7 @@ mesh.setFluxRequired(p_rgh.name());
         IOobject
         (
             "alpha.fluid",
-            runTime.timeName(),
+            "buffer",    // runTime.timeName(),
             mesh,
             IOobject::READ_IF_PRESENT,
             IOobject::AUTO_WRITE

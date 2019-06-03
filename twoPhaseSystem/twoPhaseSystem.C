@@ -127,11 +127,25 @@ Foam::twoPhaseSystem::Vm() const
 // Change phase fraction for continuous phase
 void Foam::twoPhaseSystem::solve()
 {
-    /*------------------------------------------------------------*/
-
-    /*------------------------------------------------------------*/
-
     const Time& runTime = mesh_.time();
+
+    /*------------------------------------------------------------*/
+    // basicKinematicTypeCloud& kinematicCloud("kinematicCloud");
+
+        volScalarField alphac
+        (
+            IOobject
+            (
+                "alpha.fluid",
+                "buffer", //runTime.timeName(),
+                mesh_
+            ),
+            mesh_
+        );
+        Info << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+        Info << alphac << nl << nl << endl;
+    /*------------------------------------------------------------*/
+
 
     volScalarField& alpha1 = phase1_;
     volScalarField& alpha2 = phase2_;

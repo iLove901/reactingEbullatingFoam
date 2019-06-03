@@ -100,22 +100,18 @@ int main(int argc, char *argv[])
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
         /*-------------------ADDING CODE-----------------------*/
-		// All the particle interactions are caculated in this header file
-		// Returns "cloudSU" term
+		  // All the particle interactions are caculated in this header file
+		  // Returns "cloudSU" term
             #include "cloudInteraction.H"
+            // Write alphac for fluid.solve() to read
+            alphac.write();
         /*-------------------END ADDING CODE-------------------*/
+
 
         // --- Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {
             fluid.solve();
-
-            /*-------------------ADDING CODE-----------------------*/
-                // Manually revise phase fraction
-                // set to 0 to check the runTime.write() function
-                //alpha2 = scalar(1) - alpha1;
-            /*-------------------END ADDING CODE-------------------*/
-
             fluid.correct();
 
             #include "YEqns.H"
@@ -142,6 +138,7 @@ int main(int argc, char *argv[])
         }
 
         runTime.write();
+
 
         Info<< "ExecutionTime = "
             << runTime.elapsedCpuTime()
