@@ -37,6 +37,8 @@ SourceFiles
 
 #include "phaseSystem.H"
 
+#include "basicKinematicCollidingCloud.H"
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
@@ -83,7 +85,10 @@ protected:
         phaseModel& phase2_;
 
 
+
+
 public:
+
 
     //- Runtime type information
     TypeName("twoPhaseSystem");

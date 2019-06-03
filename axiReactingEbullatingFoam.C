@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
         );
     /*-------------------END ADDING CODE-------------------*/
 
+
     #include "postProcess.H"
 
     #include "setRootCaseLists.H"
@@ -107,7 +108,14 @@ int main(int argc, char *argv[])
         // --- Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {
-            fluid.solve(alphac);
+            fluid.solve();
+
+            /*-------------------ADDING CODE-----------------------*/
+                // Manually revise phase fraction
+                // set to 0 to check the runTime.write() function
+                //alpha2 = scalar(1) - alpha1;
+            /*-------------------END ADDING CODE-------------------*/
+
             fluid.correct();
 
             #include "YEqns.H"

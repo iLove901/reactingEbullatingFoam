@@ -4,7 +4,7 @@
             kinematicCloud.storeGlobalPositions();
 
             // fluid.solve();
-            fluid.correct();
+            // fluid.correct();
             
             // Revise muc
             muc = rhoc*phase2.nu();

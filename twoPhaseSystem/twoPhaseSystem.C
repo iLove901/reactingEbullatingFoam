@@ -41,6 +41,8 @@ License
 #include "fvmLaplacian.H"
 #include "fvmSup.H"
 
+#include "basicKinematicCollidingCloud.H"
+
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam
@@ -61,9 +63,10 @@ Foam::twoPhaseSystem::twoPhaseSystem
     phase1_(phaseModels_[0]),
     phase2_(phaseModels_[1])
 {
+    /*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
     // Revised for alphac
-    // phase2_.volScalarField::operator=(scalar(1) - phase1_);
-    phase2_.volScalarField::operator=(alphac - phase1_);
+    phase2_.volScalarField::operator=(scalar(1) - phase1_);
+    //phase2_.volScalarField::operator=(alphac - phase1_);
 
     volScalarField& alpha1 = phase1_;
     mesh.setFluxRequired(alpha1.name());
@@ -118,8 +121,16 @@ Foam::twoPhaseSystem::Vm() const
 }
 
 
+
+
+/*------------------------------------------------------------*/
+// Change phase fraction for continuous phase
 void Foam::twoPhaseSystem::solve()
 {
+    /*------------------------------------------------------------*/
+
+    /*------------------------------------------------------------*/
+
     const Time& runTime = mesh_.time();
 
     volScalarField& alpha1 = phase1_;
@@ -243,9 +254,10 @@ void Foam::twoPhaseSystem::solve()
             )
           + fvc::flux
             (
-		// Revised for alphac
-                // -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
-		-fvc::flux(-phir, alphac - alpha1, alpharScheme),
+                /*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		        // Revised for alphac
+                -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
+		        //-fvc::flux(-phir, alphac - alpha1, alpharScheme),
                 alpha1,
                 alpharScheme
             )
@@ -343,13 +355,9 @@ void Foam::twoPhaseSystem::solve()
         // Ensure the phase-fractions are bounded
         alpha1.maxMin(0, 1);
 
-	/*------------------------ADDING CODE------------------------------------*/
-        	// Update the phase-fraction of the other phase
-		// alpha2 = scalar(1) - alpha1;
-		alpha2 = alphac - alpha1;
-		Info << ">>> AxiMeta: Revising alpha for water" << endl;
-	/*------------------------END ADDING CODE--------------------------------*/
-    }
+       // Update the phase-fraction of the other phase
+		alpha2 = scalar(1) - alpha1;
+	}
 }
 
 
