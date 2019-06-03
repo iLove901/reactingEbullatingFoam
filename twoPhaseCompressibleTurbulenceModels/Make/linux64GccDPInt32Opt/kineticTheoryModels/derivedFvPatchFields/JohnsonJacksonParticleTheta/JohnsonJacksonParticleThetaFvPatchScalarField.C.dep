@@ -452,7 +452,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldIO.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldFunctions.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectTemplates.C \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/pTraits.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/products.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixSpaceI.H \
@@ -619,7 +619,8 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldReuseFunctions.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldFunctionsM.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/foamVersion.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fileOperation.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/LListIO.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UListI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UList.C \
@@ -712,6 +713,7 @@ $(WM_PROJECT_DIR)/src/lagrangian/intermediate/lnInclude/PairCollisionRecordIO.C 
 $(WM_PROJECT_DIR)/src/lagrangian/intermediate/lnInclude/WallCollisionRecordIO.C \
 $(WM_PROJECT_DIR)/src/OSspecific/POSIX/lnInclude/fileMonitor.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tmpNrc.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Swap.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UListIO.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/BiIndirectListI.H \
@@ -1298,7 +1300,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldIO.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldFunctions.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectTemplates.C :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/pTraits.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/products.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixSpaceI.H :
@@ -1465,7 +1467,8 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldReuseFunctions.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldFunctionsM.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/foamVersion.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fileOperation.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/LListIO.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UListI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UList.C :
@@ -1558,6 +1561,7 @@ $(WM_PROJECT_DIR)/src/lagrangian/intermediate/lnInclude/PairCollisionRecordIO.C 
 $(WM_PROJECT_DIR)/src/lagrangian/intermediate/lnInclude/WallCollisionRecordIO.C :
 $(WM_PROJECT_DIR)/src/OSspecific/POSIX/lnInclude/fileMonitor.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tmpNrc.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Swap.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UListIO.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/BiIndirectListI.H :

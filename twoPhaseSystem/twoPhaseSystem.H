@@ -68,7 +68,6 @@ private:
         //- Return the virtual mass coefficient for phase pair
         virtual tmp<volScalarField> Vm(const phasePairKey& key) const = 0;
 
-
 protected:
 
     // Protected data
@@ -83,9 +82,6 @@ protected:
 
         //- Phase model 2
         phaseModel& phase2_;
-
-
-
 
 public:
 
@@ -129,6 +125,7 @@ public:
 
         using phaseSystem::sigma;
         using phaseSystem::dmdts;
+
 
         //- Return phase model 1
         const phaseModel& phase1() const;

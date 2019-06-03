@@ -4,23 +4,6 @@
    \\    /   O peration     | Website:  https://openfoam.org
     \\  /    A nd           | Copyright (C) 2013-2018 OpenFOAM Foundation
      \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
-
-    OpenFOAM is free software: you can redistribute it and/or modify it
-    under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
-    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-    for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
-
 \*---------------------------------------------------------------------------*/
 
 #include "twoPhaseSystem.H"
@@ -63,10 +46,22 @@ Foam::twoPhaseSystem::twoPhaseSystem
     phase1_(phaseModels_[0]),
     phase2_(phaseModels_[1])
 {
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+    /*------------------------------------------------------------
+        const kinematicCloud& myCloud = this->mesh.lookupObject<kinematicCloud> ("kinematicCloud");
+
+	auto localTheta = myCloud.theta();
+	
+	// Declare alphaConinuous
+	volScalarField alphaContinuous
+	(
+		scalar(1) - localTheta
+	);
+    ------------------------------------------------------------*/
+
     // Revised for alphac
     phase2_.volScalarField::operator=(scalar(1) - phase1_);
-    //phase2_.volScalarField::operator=(alphac - phase1_);
+    // phase2_.volScalarField::operator=(alphaContinuous - phase1_);
 
     volScalarField& alpha1 = phase1_;
     mesh.setFluxRequired(alpha1.name());
@@ -89,7 +84,6 @@ Foam::twoPhaseSystem::sigma() const
         phasePairKey(phase1().name(), phase2().name())
     );
 }
-
 
 Foam::tmp<Foam::volScalarField>
 Foam::twoPhaseSystem::Kd() const
@@ -130,20 +124,15 @@ void Foam::twoPhaseSystem::solve()
     const Time& runTime = mesh_.time();
 
     /*------------------------------------------------------------*/
-    // basicKinematicTypeCloud& kinematicCloud("kinematicCloud");
+        const kinematicCloud& myCloud = this->mesh_.lookupObject<kinematicCloud> ("kinematicCloud");
 
-        volScalarField alphac
-        (
-            IOobject
-            (
-                "alpha.fluid",
-                "buffer", //runTime.timeName(),
-                mesh_
-            ),
-            mesh_
-        );
-        Info << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-        Info << alphac << nl << nl << endl;
+	auto localTheta = myCloud.theta();
+	
+	// Declare alphaConinuous
+	volScalarField alphaContinuous
+	(
+		scalar(1) - localTheta
+	);
     /*------------------------------------------------------------*/
 
 
@@ -248,8 +237,13 @@ void Foam::twoPhaseSystem::solve()
             {
                 if (dgdt[celli] > 0.0)
                 {
-                    Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
-                    Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+			/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		        // Revised for alphac
+			// Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+                    	// Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+                
+                    Sp[celli] -= dgdt[celli]/max(alphaContinuous[celli] - alpha1[celli], 1e-4);
+                    Su[celli] += dgdt[celli]/max(alphaContinuous[celli] - alpha1[celli], 1e-4);
                 }
                 else if (dgdt[celli] < 0.0)
                 {
@@ -268,10 +262,10 @@ void Foam::twoPhaseSystem::solve()
             )
           + fvc::flux
             (
-                /*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                	/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		        // Revised for alphac
-                -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
-		        //-fvc::flux(-phir, alphac - alpha1, alpharScheme),
+                	// -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
+		        -fvc::flux(-phir, alphaContinuous - alpha1, alpharScheme),
                 alpha1,
                 alpharScheme
             )
@@ -370,7 +364,10 @@ void Foam::twoPhaseSystem::solve()
         alpha1.maxMin(0, 1);
 
        // Update the phase-fraction of the other phase
-		alpha2 = scalar(1) - alpha1;
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		// Revised for alphac
+		// alpha2 = scalar(1) - alpha1;
+		alpha2 = alphaContinuous - alpha1;
 	}
 }
 
