@@ -100,11 +100,9 @@ int main(int argc, char *argv[])
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
         /*-------------------ADDING CODE-----------------------*/
-		  // All the particle interactions are caculated in this header file
-		  // Returns "cloudSU" term
+		    // All the particle interactions are caculated in this header file
+		    // Returns "cloudSU" term
             #include "cloudInteraction.H"
-            // Write alphac for fluid.solve() to read
-            alphac.write();
         /*-------------------END ADDING CODE-------------------*/
 
 
@@ -112,7 +110,7 @@ int main(int argc, char *argv[])
         while (pimple.loop())
         {
             fluid.solve();
-            fluid.correct();
+            // fluid.correct();
 
             #include "YEqns.H"
 

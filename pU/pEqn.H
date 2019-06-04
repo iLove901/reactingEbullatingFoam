@@ -1,5 +1,10 @@
 const surfaceScalarField alphaf1("alphaf1", fvc::interpolate(alpha1));
-const surfaceScalarField alphaf2("alphaf2", scalar(1) - alphaf1);
+/*----------------------------------------------------------------*/
+// const surfaceScalarField alphaf2("alphaf2", scalar(1) - alphaf1);
+const surfaceScalarField alphaf2("alphaf2", alphacf - alphaf1);
+/*----------------------------------------------------------------*/
+
+
 
 PtrList<volScalarField> rAUs;
 rAUs.append
@@ -49,6 +54,19 @@ const surfaceScalarField phiKd2(fvc::interpolate(rAUKd2));
 PtrList<surfaceScalarField> phiFs(fluid.phiFs(rAUs));
 const surfaceScalarField& phiF1 = phiFs[0];
 const surfaceScalarField& phiF2 = phiFs[1];
+
+
+/*------------------------ADDING CODE----------------------------------------*/
+    volScalarField rAUc(1.0/U2Eqn.A());
+    surfaceScalarField rAUcf("Dp", fvc::interpolate(rAUc));
+
+    surfaceScalarField phicForces
+    (
+        fvc::flux(rAUc*cloudVolSUSu/rhoc) + rAUcf*(g & mesh.Sf())
+    );
+
+/*------------------------END ADDING CODE------------------------------------*/
+
 
 // --- Pressure corrector loop
 while (pimple.correct())

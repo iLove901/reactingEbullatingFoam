@@ -1,5 +1,9 @@
 surfaceScalarField alphaf1("alphaf1", fvc::interpolate(alpha1));
-surfaceScalarField alphaf2("alphaf2", scalar(1) - alphaf1);
+/*----------------------------------------------------------------*/
+// surfaceScalarField alphaf2("alphaf2", scalar(1) - alphaf1);
+surfaceScalarField alphaf2("alphaf2", alphacf - alphaf1);
+/*----------------------------------------------------------------*/
+
 
 surfaceScalarField alphaRhof10
 (
@@ -27,6 +31,7 @@ const surfaceScalarField Kdf("Kdf", fluid.Kdf());
 // Diagonal coefficients
 PtrList<surfaceScalarField> AFfs(fluid.AFfs());
 
+// rAU 
 PtrList<surfaceScalarField> rAUfs;
 rAUfs.append
 (
@@ -63,6 +68,19 @@ AFfs.clear();
 PtrList<surfaceScalarField> phiFfs(fluid.phiFfs(rAUfs));
 const surfaceScalarField& phiFf1 = phiFfs[0];
 const surfaceScalarField& phiFf2 = phiFfs[1];
+
+
+/*------------------------ADDING CODE----------------------------------------*/
+    volScalarField rAUc(1.0/U2Eqn.A());
+    surfaceScalarField rAUcf("Dp", fvc::interpolate(rAUc));
+
+    surfaceScalarField phicForces
+    (
+        fvc::flux(rAUc*cloudVolSUSu/rhoc) + rAUcf*(g & mesh.Sf())
+    );
+
+/*------------------------END ADDING CODE------------------------------------*/
+
 
 while (pimple.correct())
 {
@@ -321,6 +339,9 @@ while (pimple.correct())
         (
             fvc::div(phiHbyA)
           - fvm::laplacian(rAUf, p_rgh)
+            /*------------------------ADDING CODE----------------------------------------*/
+                // - fvc::reconstruct(-phicForces/rAUcf)
+            /*------------------------END ADDING CODE------------------------------------*/
         );
 
         {
@@ -335,6 +356,7 @@ while (pimple.correct())
             {
                 pEqn += pEqnComp2();
             }
+
 
             pEqn.solve();
         }

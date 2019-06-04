@@ -30,7 +30,7 @@ fvVectorMatrix U2Eqn(U2, rho2.dimensions()*U2.dimensions()*dimVol/dimTime);
     {
         U2Eqn =
         (
-            phase2.UfEqn()
+            phase2.UfEqn()    // phase.UEqn() is in /multiphaseModels/phaseSystems/phaseModel/MovingPhaseModel
          ==
            *momentumTransfer[phase2.name()]
           + fvOptions(alpha2, rho2, U2)
@@ -42,3 +42,14 @@ fvVectorMatrix U2Eqn(U2, rho2.dimensions()*U2.dimensions()*dimVol/dimTime);
         fvOptions.correct(U2);
     }
 }
+
+/*--------------------------------------------------------------
+
+UEqn() = 
+        fvm::ddt(alpha, rho, U_)
+      + fvm::div(alphaRhoPhi_, U_)
+      + fvm::SuSp(- this->continuityError(), U_)
+      + this->fluid().MRF().DDt(alpha*rho, U_)
+      + turbulence_->divDevRhoReff(U_)
+
+--------------------------------------------------------------*/

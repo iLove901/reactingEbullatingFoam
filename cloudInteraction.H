@@ -4,7 +4,7 @@
             kinematicCloud.storeGlobalPositions();
 
             // fluid.solve();
-            // fluid.correct();
+            fluid.correct();
             
             // Revise muc
             muc = rhoc*phase2.nu();
@@ -19,12 +19,6 @@
             alphac.correctBoundaryConditions();
             alphacf = fvc::interpolate(alphac);
             alphaPhic = alphacf*phic;
-
-            // Correct the fraction for the two fluid phases
-            Info << ">>> AxiMeta: Correct volume fractions for gas and liquid phase" << endl;
-            // Dimension difference
-            // alphac [0 0 0 0 0 0 0]; phase1.alpha() [1 -1 -1 0 0 0 0]
-            /* alpha2 = alphac - alpha1;  */
 
 
             // Calculate particle and liquid phase interactions

@@ -48,7 +48,7 @@ Foam::twoPhaseSystem::twoPhaseSystem
 {
 
     /*------------------------------------------------------------
-        const kinematicCloud& myCloud = this->mesh.lookupObject<kinematicCloud> ("kinematicCloud");
+    const kinematicCloud& myCloud = this->mesh().lookupObject<kinematicCloud> ("kinematicCloud");
 
 	auto localTheta = myCloud.theta();
 	
@@ -123,10 +123,11 @@ void Foam::twoPhaseSystem::solve()
 {
     const Time& runTime = mesh_.time();
 
-    /*------------------------------------------------------------*/
+        /*------------------------------------------------------------*/
+        // Access kinematicCloud
         const kinematicCloud& myCloud = this->mesh_.lookupObject<kinematicCloud> ("kinematicCloud");
 
-	auto localTheta = myCloud.theta();
+	    auto localTheta = myCloud.theta();
 	
 	// Declare alphaConinuous
 	volScalarField alphaContinuous
@@ -237,10 +238,10 @@ void Foam::twoPhaseSystem::solve()
             {
                 if (dgdt[celli] > 0.0)
                 {
-			/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		        // Revised for alphac
-			// Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
-                    	// Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+			/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/  
+                    // Revised for alphac
+			        // Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+                    // Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
                 
                     Sp[celli] -= dgdt[celli]/max(alphaContinuous[celli] - alpha1[celli], 1e-4);
                     Su[celli] += dgdt[celli]/max(alphaContinuous[celli] - alpha1[celli], 1e-4);
@@ -262,9 +263,9 @@ void Foam::twoPhaseSystem::solve()
             )
           + fvc::flux
             (
-                	/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                /*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		        // Revised for alphac
-                	// -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
+                // -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
 		        -fvc::flux(-phir, alphaContinuous - alpha1, alpharScheme),
                 alpha1,
                 alpharScheme
