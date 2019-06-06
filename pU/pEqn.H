@@ -5,64 +5,60 @@ const surfaceScalarField alphaf2("alphaf2", alphacf - alphaf1);
 /*----------------------------------------------------------------*/
 
 
+// =================================================================================================//
+                // SECTION 1
+                PtrList<volScalarField> rAUs;
+                rAUs.append
+                (
+                    new volScalarField
+                    (
+                        IOobject::groupName("rAU", phase1.name()),
+                        1.0 / ( U1Eqn.A() + byDt(max(phase1.residualAlpha() - alpha1, scalar(0))*rho1) )
+                    )
+                );
+                rAUs.append
+                (
+                    new volScalarField
+                    (
+                        IOobject::groupName("rAU", phase2.name()),
+                        1.0 / ( U2Eqn.A() + byDt(max(phase2.residualAlpha() - alpha2, scalar(0))*rho2) )
+                    )
+                );
+                const volScalarField& rAU1 = rAUs[0];
+                const volScalarField& rAU2 = rAUs[1];
+                
+                const surfaceScalarField alpharAUf1
+                (
+                    fvc::interpolate(max(alpha1, phase1.residualAlpha())*rAU1)
+                );
+                const surfaceScalarField alpharAUf2
+                (
+                    fvc::interpolate(max(alpha2, phase2.residualAlpha())*rAU2)
+                );
+                
+                // Drag coefficients
+                const volScalarField Kd(fluid.Kd());
+                const volScalarField rAUKd1(rAU1*Kd);
+                const volScalarField rAUKd2(rAU2*Kd);
+                const surfaceScalarField phiKd1(fvc::interpolate(rAUKd1));
+                const surfaceScalarField phiKd2(fvc::interpolate(rAUKd2));
+                
+                // Explicit force fluxes
+                PtrList<surfaceScalarField> phiFs(fluid.phiFs(rAUs));
+                const surfaceScalarField& phiF1 = phiFs[0];
+                const surfaceScalarField& phiF2 = phiFs[1];
+//=================================================================================================//
 
-PtrList<volScalarField> rAUs;
-rAUs.append
-(
-    new volScalarField
-    (
-        IOobject::groupName("rAU", phase1.name()),
-        1.0
-       /(
-            U1Eqn.A()
-          + byDt(max(phase1.residualAlpha() - alpha1, scalar(0))*rho1)
-        )
-    )
-);
-rAUs.append
-(
-    new volScalarField
-    (
-        IOobject::groupName("rAU", phase2.name()),
-        1.0
-       /(
-            U2Eqn.A()
-          + byDt(max(phase2.residualAlpha() - alpha2, scalar(0))*rho2)
-        )
-    )
-);
-const volScalarField& rAU1 = rAUs[0];
-const volScalarField& rAU2 = rAUs[1];
 
-const surfaceScalarField alpharAUf1
-(
-    fvc::interpolate(max(alpha1, phase1.residualAlpha())*rAU1)
-);
-const surfaceScalarField alpharAUf2
-(
-    fvc::interpolate(max(alpha2, phase2.residualAlpha())*rAU2)
-);
-
-// Drag coefficients
-const volScalarField Kd(fluid.Kd());
-const volScalarField rAUKd1(rAU1*Kd);
-const volScalarField rAUKd2(rAU2*Kd);
-const surfaceScalarField phiKd1(fvc::interpolate(rAUKd1));
-const surfaceScalarField phiKd2(fvc::interpolate(rAUKd2));
-
-// Explicit force fluxes
-PtrList<surfaceScalarField> phiFs(fluid.phiFs(rAUs));
-const surfaceScalarField& phiF1 = phiFs[0];
-const surfaceScalarField& phiF2 = phiFs[1];
 
 
 /*------------------------ADDING CODE----------------------------------------*/
     volScalarField rAUc(1.0/U2Eqn.A());
-    surfaceScalarField rAUcf("Dp", fvc::interpolate(rAUc));
+    // surfaceScalarField rAUcf("Dp", fvc::interpolate(rAUc));
 
     surfaceScalarField phicForces
     (
-        fvc::flux(rAUc*cloudVolSUSu/rhoc) + rAUcf*(g & mesh.Sf())
+        fvc::flux(rAUc*cloudVolSUSu)       //  + rAUcf*(g & mesh.Sf())
     );
 
 /*------------------------END ADDING CODE------------------------------------*/
@@ -147,7 +143,11 @@ while (pimple.correct())
     const surfaceScalarField phiHbyA2
     (
         IOobject::groupName("phiHbyA", phase2.name()),
-        fvc::flux(HbyA2) - phigF2 - ddtCorrByAs[1]
+        
+        /*------------------------ADDING CODE----------------------------------------*/
+            // fvc::flux(HbyA2) - phigF2 - ddtCorrByAs[1]
+            fvc::flux(HbyA2) - phigF2 - ddtCorrByAs[1] + phicForces
+        /*------------------------END ADDING CODE------------------------------------*/        
     );
 
     ddtCorrByAs.clear();
@@ -358,6 +358,7 @@ while (pimple.correct())
                 pEqnIncomp.flux()/rAUf
             );
 
+
             // Partial-elimination phase-flux corrector
             {
                 const surfaceScalarField phi1s
@@ -365,9 +366,10 @@ while (pimple.correct())
                     phiHbyA1 + alpharAUf1*mSfGradp
                 );
 
+
                 const surfaceScalarField phi2s
                 (
-                    phiHbyA2 + alpharAUf2*mSfGradp
+                        phiHbyA2 + alpharAUf2*mSfGradp
                 );
 
                 surfaceScalarField phir
@@ -405,8 +407,9 @@ while (pimple.correct())
 
                 const volVectorField Us2
                 (
-                    HbyA2
-                  + fvc::reconstruct(alpharAUf2*mSfGradp - phigF2)
+                    /*----------------------------------------------------------------------*/
+                        HbyA2 + fvc::reconstruct( alpharAUf2*mSfGradp - phigF2 + phicForces )
+                    /*----------------------------------------------------------------------*/
                 );
 
                 const volVectorField U
