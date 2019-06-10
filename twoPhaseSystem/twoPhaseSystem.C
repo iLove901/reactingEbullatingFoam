@@ -42,14 +42,13 @@ Foam::twoPhaseSystem::twoPhaseSystem
     const fvMesh& mesh
 )
 :
-    
     phaseSystem(mesh),
     phase1_(phaseModels_[0]),
     phase2_(phaseModels_[1])
 {
 
     /*------------------------------------------------------------
-    const kinematicCloud& myCloud = this->mesh().lookupObject<kinematicCloud> ("kinematicCloud");
+        const kinematicCloud& myCloud = this->mesh.lookupObject<kinematicCloud> ("kinematicCloud");
 
 	auto localTheta = myCloud.theta();
 	
@@ -59,6 +58,7 @@ Foam::twoPhaseSystem::twoPhaseSystem
 		scalar(1) - localTheta
 	);
     ------------------------------------------------------------*/
+
     // Revised for alphac
     phase2_.volScalarField::operator=(scalar(1) - phase1_);
     // phase2_.volScalarField::operator=(alphaContinuous - phase1_);
@@ -123,17 +123,36 @@ void Foam::twoPhaseSystem::solve()
 {
     const Time& runTime = mesh_.time();
 
-        /*------------------------------------------------------------*/
-        // Access kinematicCloud
+    /*------------------------------------------------------------*/
         const kinematicCloud& myCloud = this->mesh_.lookupObject<kinematicCloud> ("kinematicCloud");
 
-	    auto localTheta = myCloud.theta();
+	//auto localTheta = myCloud.theta();
+	
+	// Define a scalarfield for Lagrangian phase vol fraction
+	volScalarField localTheta
+	(
+		myCloud.theta()
+	);
+
+	// Print solid phase frac
+	Info 	<< ">>> AxiMeta: Lagrangian phase volume fraction "
+		<< "  Min(alphaTheta) = " << min(localTheta).value()
+            	<< "  Max(alphaTheta) = " << max(localTheta).value()
+            	<< endl;
 	
 	// Declare alphaConinuous
 	volScalarField alphaContinuous
 	(
 		scalar(1) - localTheta
 	);
+	
+	// Print continuous phase frac
+
+	Info 	<< ">>> AxiMeta: Continuous phase volume fraction "
+		<< "  Min(alphaFluid) = " << min(alphaContinuous)
+            	<< "  Max(alphaFluid) = " << max(alphaContinuous).value()
+            	<< endl;	
+
     /*------------------------------------------------------------*/
 
 
@@ -238,10 +257,10 @@ void Foam::twoPhaseSystem::solve()
             {
                 if (dgdt[celli] > 0.0)
                 {
-			/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/  
-                    // Revised for alphac
-			        // Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
-                    // Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+			/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		        // Revised for alphac
+			// Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+                    	// Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
                 
                     Sp[celli] -= dgdt[celli]/max(alphaContinuous[celli] - alpha1[celli], 1e-4);
                     Su[celli] += dgdt[celli]/max(alphaContinuous[celli] - alpha1[celli], 1e-4);
@@ -263,10 +282,10 @@ void Foam::twoPhaseSystem::solve()
             )
           + fvc::flux
             (
-                /*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                	/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		        // Revised for alphac
-                // -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
-		        -fvc::flux(-phir, alphaContinuous - alpha1, alpharScheme),
+                	// -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
+		        -fvc::flux(-phir, min( max(alphaContinuous - alpha1, 1e-4), 1.0 ), alpharScheme),
                 alpha1,
                 alpharScheme
             )
@@ -368,7 +387,7 @@ void Foam::twoPhaseSystem::solve()
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		// Revised for alphac
 		// alpha2 = scalar(1) - alpha1;
-		alpha2 = alphaContinuous - alpha1;
+		alpha2 = min( max(alphaContinuous - alpha1, 1e-4), 1.0);
 	}
 }
 
