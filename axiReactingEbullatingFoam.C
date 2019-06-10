@@ -117,13 +117,13 @@ int main(int argc, char *argv[])
             if (faceMomentum)
             {
                 #include "pUf/UEqns.H"
-                // #include "EEqns.H"
+                #include "EEqns.H"
                 #include "pUf/pEqn.H"
             }
             else
             {
                 #include "pU/UEqns.H"
-                // #include "EEqns.H"
+                #include "EEqns.H"
                 #include "pU/pEqn.H"
             }
 

@@ -42,6 +42,7 @@ Foam::twoPhaseSystem::twoPhaseSystem
     const fvMesh& mesh
 )
 :
+    
     phaseSystem(mesh),
     phase1_(phaseModels_[0]),
     phase2_(phaseModels_[1])
@@ -58,7 +59,6 @@ Foam::twoPhaseSystem::twoPhaseSystem
 		scalar(1) - localTheta
 	);
     ------------------------------------------------------------*/
-
     // Revised for alphac
     phase2_.volScalarField::operator=(scalar(1) - phase1_);
     // phase2_.volScalarField::operator=(alphaContinuous - phase1_);
