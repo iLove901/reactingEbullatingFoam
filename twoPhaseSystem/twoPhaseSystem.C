@@ -259,11 +259,11 @@ void Foam::twoPhaseSystem::solve()
                 {
 			/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		        // Revised for alphac
-			    Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
-                Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+			    // Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+                // Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
                 
-                    // Sp[celli] -= dgdt[celli]/max(alphaContinuous[celli] - alpha1[celli], 1e-4);
-                    // Su[celli] += dgdt[celli]/max(alphaContinuous[celli] - alpha1[celli], 1e-4);
+                    Sp[celli] -= dgdt[celli]/min( max(alphaContinuous[celli] - alpha1[celli], 1e-4), 1.0);
+                    Su[celli] += dgdt[celli]/min( max(alphaContinuous[celli] - alpha1[celli], 1e-4), 1.0);
                 }
                 else if (dgdt[celli] < 0.0)
                 {
