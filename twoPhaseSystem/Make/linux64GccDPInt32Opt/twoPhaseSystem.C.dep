@@ -581,7 +581,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/sphericalTensorField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubFieldI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectTemplates.C \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UILList.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ILListIO.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/LListIO.C \
@@ -729,8 +729,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldReuseFunctions.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTensorField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/foamVersion.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fileOperation.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UILListIO.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ISstreamI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixSpaceI.H \
@@ -813,7 +812,6 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTensorFieldField.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/sphericalTensorFieldField.C \
 $(WM_PROJECT_DIR)/src/OSspecific/POSIX/lnInclude/fileMonitor.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tmpNrc.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Matrix.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/processorLduInterfaceTemplates.C \
@@ -1485,7 +1483,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/sphericalTensorField.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubFieldI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectTemplates.C :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UILList.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ILListIO.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/LListIO.C :
@@ -1633,8 +1631,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldReuseFunctions.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTensorField.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/foamVersion.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fileOperation.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UILListIO.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ISstreamI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixSpaceI.H :
@@ -1717,7 +1714,6 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTensorFieldField.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/sphericalTensorFieldField.C :
 $(WM_PROJECT_DIR)/src/OSspecific/POSIX/lnInclude/fileMonitor.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tmpNrc.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Matrix.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/processorLduInterfaceTemplates.C :
