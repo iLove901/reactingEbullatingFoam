@@ -524,7 +524,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/vectorField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tensorField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/sphericalTensorField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubFieldI.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFieldNew.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/VectorI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SphericalTensorI.H \
@@ -688,7 +688,8 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/FieldFunctions.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldReuseFunctions.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTensorField.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixSpaceI.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedValueFvsPatchField.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ProcessorTopology.H \
@@ -800,6 +801,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/FieldReuseFunctions.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/FieldFunctionsM.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/objectHit.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ProcessorTopology.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/transformList.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/mapDistributeTemplates.C \
@@ -1462,7 +1464,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/vectorField.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tensorField.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/sphericalTensorField.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubFieldI.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H :
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFieldNew.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/VectorI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SphericalTensorI.H :
@@ -1626,7 +1628,8 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/FieldFunctions.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/DimensionedFieldReuseFunctions.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTensorField.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixSpaceI.H :
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedValueFvsPatchField.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ProcessorTopology.H :
@@ -1738,6 +1741,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/FieldReuseFunctions.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/FieldFunctionsM.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/objectHit.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.C :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ProcessorTopology.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/transformList.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/mapDistributeTemplates.C :

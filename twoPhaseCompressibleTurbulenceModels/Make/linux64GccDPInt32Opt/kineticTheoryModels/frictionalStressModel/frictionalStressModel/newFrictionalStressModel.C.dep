@@ -289,7 +289,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubFieldI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/triadI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectTemplates.C \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/dimensionSets.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/VectorI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SphericalTensorI.H \
@@ -375,7 +375,8 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTensorField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/foamVersion.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fileOperation.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/scalarMatrices.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixSpaceI.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFieldNew.C \
@@ -433,6 +434,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/objectHit.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.C \
 $(WM_PROJECT_DIR)/src/OSspecific/POSIX/lnInclude/fileMonitor.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tmpNrc.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/RectangularMatrix.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SquareMatrix.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SymmetricSquareMatrix.H \
@@ -816,7 +818,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubFieldI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/triadI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IOobjectTemplates.C :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/dimensionSets.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/VectorI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SphericalTensorI.H :
@@ -902,7 +904,8 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTensorField.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/foamVersion.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fileOperation.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/scalarMatrices.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/MatrixSpaceI.H :
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFieldNew.C :
@@ -960,6 +963,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/objectHit.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.C :
 $(WM_PROJECT_DIR)/src/OSspecific/POSIX/lnInclude/fileMonitor.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tmpNrc.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/RectangularMatrix.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SquareMatrix.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SymmetricSquareMatrix.H :

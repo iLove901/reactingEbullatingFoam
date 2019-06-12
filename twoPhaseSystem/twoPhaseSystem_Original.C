@@ -4,6 +4,23 @@
    \\    /   O peration     | Website:  https://openfoam.org
     \\  /    A nd           | Copyright (C) 2013-2018 OpenFOAM Foundation
      \\/     M anipulation  |
+-------------------------------------------------------------------------------
+License
+    This file is part of OpenFOAM.
+
+    OpenFOAM is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+    for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+
 \*---------------------------------------------------------------------------*/
 
 #include "twoPhaseSystem.H"
@@ -23,8 +40,6 @@
 #include "fvmDdt.H"
 #include "fvmLaplacian.H"
 #include "fvmSup.H"
-
-#include "basicKinematicCollidingCloud.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
@@ -46,22 +61,7 @@ Foam::twoPhaseSystem::twoPhaseSystem
     phase1_(phaseModels_[0]),
     phase2_(phaseModels_[1])
 {
-
-    /*------------------------------------------------------------
-        const kinematicCloud& myCloud = this->mesh.lookupObject<kinematicCloud> ("kinematicCloud");
-
-	auto localTheta = myCloud.theta();
-	
-	// Declare alphaConinuous
-	volScalarField alphaContinuous
-	(
-		scalar(1) - localTheta
-	);
-    ------------------------------------------------------------*/
-
-    // Revised for alphac
     phase2_.volScalarField::operator=(scalar(1) - phase1_);
-    // phase2_.volScalarField::operator=(alphaContinuous - phase1_);
 
     volScalarField& alpha1 = phase1_;
     mesh.setFluxRequired(alpha1.name());
@@ -84,6 +84,7 @@ Foam::twoPhaseSystem::sigma() const
         phasePairKey(phase1().name(), phase2().name())
     );
 }
+
 
 Foam::tmp<Foam::volScalarField>
 Foam::twoPhaseSystem::Kd() const
@@ -115,46 +116,9 @@ Foam::twoPhaseSystem::Vm() const
 }
 
 
-
-
-/*------------------------------------------------------------*/
-// Change phase fraction for continuous phase
 void Foam::twoPhaseSystem::solve()
 {
     const Time& runTime = mesh_.time();
-
-    /*------------------------------------------------------------*/
-        const kinematicCloud& myCloud = this->mesh_.lookupObject<kinematicCloud> ("kinematicCloud");
-
-	//auto localTheta = myCloud.theta();
-	
-	// Define a scalarfield for Lagrangian phase vol fraction
-	volScalarField localTheta
-	(
-		myCloud.theta()
-	);
-
-	// Print solid phase frac
-	Info 	<< ">>> AxiMeta: Lagrangian phase volume fraction "
-		<< "  Min(alphaTheta) = " << min(localTheta).value()
-            	<< "  Max(alphaTheta) = " << max(localTheta).value()
-            	<< endl;
-	
-	// Declare alphaConinuous
-	volScalarField alphaContinuous
-	(
-		scalar(1) - localTheta
-	);
-	
-	// Print continuous phase frac
-
-	Info 	<< ">>> AxiMeta: Continuous phase volume fraction "
-		<< "  Min(alphaFluid) = " << min(alphaContinuous)
-            	<< "  Max(alphaFluid) = " << max(alphaContinuous).value()
-            	<< endl;	
-
-    /*------------------------------------------------------------*/
-
 
     volScalarField& alpha1 = phase1_;
     volScalarField& alpha2 = phase2_;
@@ -257,13 +221,8 @@ void Foam::twoPhaseSystem::solve()
             {
                 if (dgdt[celli] > 0.0)
                 {
-			/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		        // Revised for alphac
-			    Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
-                Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
-                
-                    // Sp[celli] -= dgdt[celli]/min( max(alphaContinuous[celli] - alpha1[celli], 1e-4), 1.0);
-                    // Su[celli] += dgdt[celli]/min( max(alphaContinuous[celli] - alpha1[celli], 1e-4), 1.0);
+                    Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+                    Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
                 }
                 else if (dgdt[celli] < 0.0)
                 {
@@ -282,10 +241,7 @@ void Foam::twoPhaseSystem::solve()
             )
           + fvc::flux
             (
-                	/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		        // Revised for alphac
-                	-fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
-		        // -fvc::flux(-phir, alphaContinuous - alpha1, alpharScheme),
+               -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
                 alpha1,
                 alpharScheme
             )
@@ -322,9 +278,6 @@ void Foam::twoPhaseSystem::solve()
                     UniformField<scalar>(phase1_.alphaMax()),
                     zeroField()
                 );
-		
-		// Correct alpha1
-		// alpha1.maxMin(1e-6, 1);
 
                 if (alphaSubCycle.index() == 1)
                 {
@@ -335,7 +288,7 @@ void Foam::twoPhaseSystem::solve()
                     phase1_.alphaPhiRef() += alphaPhi10;
                 }
             }
-	
+
             phase1_.alphaPhiRef() /= nAlphaSubCycles;
         }
         else
@@ -351,10 +304,6 @@ void Foam::twoPhaseSystem::solve()
                 UniformField<scalar>(phase1_.alphaMax()),
                 zeroField()
             );
-		
-
-		// Correct alpha1
-		// alpha1.maxMin(1e-6, 1);
 
             phase1_.alphaPhiRef() = alphaPhi1;
         }
@@ -390,12 +339,9 @@ void Foam::twoPhaseSystem::solve()
         // Ensure the phase-fractions are bounded
         alpha1.maxMin(0, 1);
 
-       // Update the phase-fraction of the other phase
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		// Revised for alphac
-		alpha2 = scalar(1) - alpha1;
-		// alpha2 = alphaContinuous - alpha1;
-	}
+        // Update the phase-fraction of the other phase
+        alpha2 = scalar(1) - alpha1;
+    }
 }
 
 
