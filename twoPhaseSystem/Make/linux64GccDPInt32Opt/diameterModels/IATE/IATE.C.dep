@@ -507,7 +507,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/labelField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/vectorField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/sphericalTensorField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubFieldI.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UILList.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ILListIO.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/LListIO.C \
@@ -655,8 +655,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/dlLibraryTableTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/functionObject.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SHA1Digest.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UILListIO.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/nullObjectI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UListIO.C \
@@ -749,7 +748,6 @@ $(WM_PROJECT_DIR)/src/OSspecific/POSIX/lnInclude/fileMonitor.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tmpNrc.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/objectHit.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.C \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ConstantI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Constant.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Function1New.C \
@@ -1379,7 +1377,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/labelField.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/vectorField.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/sphericalTensorField.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubFieldI.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapper.H :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UILList.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ILListIO.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/LListIO.C :
@@ -1527,8 +1525,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/dlLibraryTableTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/functionObject.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SHA1Digest.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapper.H :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/generalFieldMapperTemplates.C :
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UILListIO.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/nullObjectI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UListIO.C :
@@ -1621,7 +1618,6 @@ $(WM_PROJECT_DIR)/src/OSspecific/POSIX/lnInclude/fileMonitor.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/tmpNrc.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/objectHit.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/PrimitivePatch.C :
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fieldMapperTemplates.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/ConstantI.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Constant.C :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Function1New.C :

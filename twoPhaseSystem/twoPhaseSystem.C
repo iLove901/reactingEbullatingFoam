@@ -143,7 +143,7 @@ void Foam::twoPhaseSystem::solve()
 	// Declare alphaConinuous
 	volScalarField alphaContinuous
 	(
-		scalar(1) - localTheta
+		max( scalar(1) - localTheta, scalar(0) )
 	);
 	
 	// Print continuous phase frac
@@ -259,11 +259,11 @@ void Foam::twoPhaseSystem::solve()
                 {
 			/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		        // Revised for alphac
-			    // Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
-                // Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+			    Sp[celli] -= dgdt[celli]/max(1 - alpha1[celli], 1e-4);
+                Su[celli] += dgdt[celli]/max(1 - alpha1[celli], 1e-4);
                 
-                    Sp[celli] -= dgdt[celli]/min( max(alphaContinuous[celli] - alpha1[celli], 1e-4), 1.0);
-                    Su[celli] += dgdt[celli]/min( max(alphaContinuous[celli] - alpha1[celli], 1e-4), 1.0);
+                    // Sp[celli] -= dgdt[celli]/min( max(alphaContinuous[celli] - alpha1[celli], 1e-4), 1.0);
+                    // Su[celli] += dgdt[celli]/min( max(alphaContinuous[celli] - alpha1[celli], 1e-4), 1.0);
                 }
                 else if (dgdt[celli] < 0.0)
                 {
@@ -283,9 +283,9 @@ void Foam::twoPhaseSystem::solve()
           + fvc::flux
             (
                 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		        // Revised for alphac
-                	-fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
-		        // -fvc::flux(-phir, alphaContinuous - alpha1, alpharScheme),
+		                // Revised for alphac
+                	    // -fvc::flux(-phir, scalar(1) - alpha1, alpharScheme),
+		                -fvc::flux(-phir, max( alphaContinuous - alpha1, scalar(0) ), alpharScheme),
                 alpha1,
                 alpharScheme
             )
@@ -359,6 +359,8 @@ void Foam::twoPhaseSystem::solve()
             phase1_.alphaPhiRef() = alphaPhi1;
         }
 
+        alpha1.maxMin(0, 1);
+
         if (alphaDbyA.valid())
         {
             fvScalarMatrix alpha1Eqn
@@ -390,11 +392,17 @@ void Foam::twoPhaseSystem::solve()
         // Ensure the phase-fractions are bounded
         alpha1.maxMin(0, 1);
 
+        Info<< ">>> AxiMeta: " << alpha1.name() << " corrected volume fraction = "
+            << alpha1.weightedAverage(mesh_.V()).value()
+            << "  Min(alpha1) = " << min(alpha1).value()
+            << "  Max(alpha1) = " << max(alpha1).value()
+            << endl;
+
        // Update the phase-fraction of the other phase
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		// Revised for alphac
 		// alpha2 = scalar(1) - alpha1;
-		alpha2 = alphaContinuous - alpha1;
+		alpha2 = max( alphaContinuous - alpha1, scalar(0) );
 	}
 }
 
